@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13b066937f28f3a449a32b6bb18813fb, type: 3}
+  m_Name: M92Beretta_weapon
+  m_EditorClassIdentifier: 
+  Name: M92 Beretta
+  Description: 
+  MaxAmmount: 180
+  ItemObject: {fileID: 5387920363998956466, guid: 848fb365fafee884ea8561d280c32803,
+    type: 3}
+  Equipment: 1
+  MaxAmmo: 15
+  FireRate: 360
+  Damage: 22
+  AutoFire: 0
+  ReloadingTime: 0
+  ShootAudio: {fileID: 8300000, guid: a361d5cdc0de6294a8b34d8728ce2f19, type: 3}
+  NoAmmoAudio: {fileID: 8300000, guid: f74f35cd1a06a6b468a54a3ed7f8e9d3, type: 3}
+  ReloadAudio: {fileID: 0}
