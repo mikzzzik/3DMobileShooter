@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private FixedJoystick _joystick;
     [SerializeField] private Rigidbody _rigidbody;
     [SerializeField] private CharacterController _characterController;
+    [SerializeField] private RuntimeAnimatorController _animatorControllerWithoutWeapon;
     [SerializeField] private Animator _animator;
     private float _gravity = 0;
     void Start()
@@ -19,8 +20,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        _gravity = 0;
-        
+
         if (!_characterController.isGrounded) _gravity -= 9.81f * Time.deltaTime; ;
         _characterController.Move(new Vector3( _joystick.Horizontal * _playerSpeed, _gravity,  _joystick.Vertical * _playerSpeed));
 
@@ -38,5 +38,18 @@ public class PlayerController : MonoBehaviour
             _animator.SetBool("Walk", false);
             _animator.speed = 1f;
         }
+    }
+
+    public void ChangeAnimatorController(RuntimeAnimatorController controller)
+    {
+        if(controller == null)
+        {
+            _animator.runtimeAnimatorController = _animatorControllerWithoutWeapon;
+        }
+        else
+        {
+            _animator.runtimeAnimatorController = controller;
+        }
+
     }
 }

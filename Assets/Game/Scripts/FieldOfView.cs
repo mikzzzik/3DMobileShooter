@@ -27,7 +27,7 @@ public class FieldOfView : MonoBehaviour {
     
     private void OnDrawGizmos()
     {
-        Handles.DrawWireArc(transform.position, Vector3.up,Vector3.forward,360,_range);
+      // Handles.DrawWireArc(transform.position, Vector3.up,Vector3.forward,360,_range);
         Gizmos.DrawLine(transform.position, transform.position + GetDir(_angle) * _range);
         Gizmos.DrawLine(transform.position, transform.position + GetDir(-_angle) * _range);
         float step = _angle*2 / (float)_countLines;

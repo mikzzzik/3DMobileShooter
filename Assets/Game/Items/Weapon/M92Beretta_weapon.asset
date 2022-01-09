@@ -14,15 +14,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: M92 Beretta
   Description: 
-  MaxAmmount: 180
-  ItemObject: {fileID: 5387920363998956466, guid: 848fb365fafee884ea8561d280c32803,
+  MaxAmount: 1
+  Icon: {fileID: 21300000, guid: 03f2d0d0c406c4b499b5952cadcb61f1, type: 3}
+  ItemObject: {fileID: 9162197554261529853, guid: 3a94277ed661ff848ae9aef6dc015630,
     type: 3}
-  Equipment: 1
-  MaxAmmo: 15
+  ItemType: 1
+  MaxAmmo: 60
+  MaxLoaded: 15
   FireRate: 360
-  Damage: 22
+  Damage: 21
   AutoFire: 0
   ReloadingTime: 0
+  AnimatorController: {fileID: 9100000, guid: eac8a60310435a54e8e0a1d6593320ba, type: 2}
   ShootAudio: {fileID: 8300000, guid: a361d5cdc0de6294a8b34d8728ce2f19, type: 3}
   NoAmmoAudio: {fileID: 8300000, guid: f74f35cd1a06a6b468a54a3ed7f8e9d3, type: 3}
   ReloadAudio: {fileID: 0}
+  ItemWeaponType: 0
+  AmmoType: 0
