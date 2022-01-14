@@ -42,7 +42,6 @@ public class MainMenuController : MonoBehaviour
         webRequest.RemoveAt(0);
         if(bool.Parse(status))
         {
-
             _inventoryController.LoadInventory(GetInventory);
         }
         else

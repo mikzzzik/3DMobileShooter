@@ -16,7 +16,7 @@ public class ItemDataBase : MonoBehaviour
 
     private void OnDisable()
     {
-
+        OnSavePrefs -= SavePrefs;
     }
 
     public Item GetItem(int id)
@@ -50,5 +50,13 @@ public class ItemDataBase : MonoBehaviour
             PlayerPrefs.SetInt("HotbarItemAmount_" + i, _hotbarSlot[i].GetAmount());
         }
         OnSavePrefs -= SavePrefs;
+    }
+
+    private void UpdateInventoryDataBase(List<SlotContainer> _slots)
+    {
+        for(int i = 0; i < _slots.Count;i++)
+        {
+
+        }
     }
 }
