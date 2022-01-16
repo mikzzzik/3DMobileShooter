@@ -22,6 +22,7 @@ public class SlotDrag : EventTrigger
     }
     public override void OnBeginDrag(PointerEventData data)
     {
+        if (_slotContainer.GetItem() == null) return;
         Debug.Log("OnBeginDrag called.");
         OnSetTargetItem(_slotContainer);
         OnDragitem(data.delta);

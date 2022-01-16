@@ -42,7 +42,7 @@ public class SlotContainer : EventTrigger
         }
         else
         {
-            _item = null;
+            ClearSlot();
 
             _item_text_count.enabled = true;
             
@@ -83,8 +83,15 @@ public class SlotContainer : EventTrigger
 
     public override void OnPointerClick(PointerEventData eventData)
     {
+        if (_item == null) return;
         base.OnPointerClick(eventData);
         OnSetActiveSlot(this);
+    }
+
+    private void ClearSlot()
+    {
+        _item = null;
+        _amount = 0;
     }
 
     public Item GetItem()

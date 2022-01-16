@@ -11,6 +11,7 @@ public class Item : ScriptableObject
     public Sprite Icon;
     public GameObject ItemObject;
     public ItemType ItemType;
+    public int MinPrice;
 
 }
 public enum ItemType

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 using System;
 public class HudController : MonoBehaviour
 {
@@ -32,5 +33,10 @@ public class HudController : MonoBehaviour
     private void UpdateAmmo(int current, int max)
     {
         _ammoText.text = current.ToString() + "/" + max.ToString();
+    }
+
+    public void ToMainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
     }
 }

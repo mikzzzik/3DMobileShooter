@@ -18,6 +18,7 @@ public class PlayerInventory : MonoBehaviour
     [SerializeField] private PlayerController _playerController;
     [SerializeField] private PlayerWeaponController _playerWeaponController;
     [SerializeField] private ItemDataBase _itemDB;
+    
     private Item _nowItem;
     private SlotContainer _nowSlot;
     private WeaponController _activeWeapon;
@@ -27,6 +28,7 @@ public class PlayerInventory : MonoBehaviour
     public static Action<SlotType, int> OnEquipItem;
     public static Action<SlotType, int> OnUnEquipItem;
     public static Action<SlotType, int> OnUseItem;
+    public static Action OnRaidExit;
     
     
     private void OnEnable()
@@ -36,6 +38,7 @@ public class PlayerInventory : MonoBehaviour
         OnEquipItem += Equip;
         OnUnEquipItem += UnEquip;
         OnUseItem += Use;
+        OnRaidExit += RaidExit;
 
         for (int i = 0; i < _mainSlots.Count; i++)
         {
@@ -68,10 +71,16 @@ public class PlayerInventory : MonoBehaviour
         OnEquipItem -= Equip;
         OnUnEquipItem -= UnEquip;
         OnUseItem -= Use;
+        OnRaidExit -= RaidExit;
 
         ItemDataBase.OnSavePrefs(_mainSlots, _hotbarSlots);
     }
 
+    private void RaidExit()
+    {
+       ItemDataBase.OnUpdateInventory(_mainSlots); 
+       ItemDataBase.OnUpdateInventory(_hotbarSlots);
+    }
     public void PickUp(PickableObject item)
     {
 

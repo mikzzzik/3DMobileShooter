@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: M92Beretta_weapon
   m_EditorClassIdentifier: 
   Name: M92 Beretta
-  Description: 
+  Description: is a series of semi-automatic pistols designed and manufactured by
+    Beretta of Italy. 9mm calibre
   MaxAmount: 1
   Icon: {fileID: 21300000, guid: 03f2d0d0c406c4b499b5952cadcb61f1, type: 3}
   ItemObject: {fileID: 9162197554261529853, guid: 3a94277ed661ff848ae9aef6dc015630,

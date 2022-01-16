@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using System.Globalization;
 
 public class MainMenuInventoryController : MonoBehaviour
 {
     [SerializeField] private List<SlotContainer> _inventorySlot;
     [SerializeField] private List<SlotContainer> _mainSlot;
     [SerializeField] private List<SlotContainer> _hotbarSlot;
-    [SerializeField] private Item _item;
     [SerializeField] private Image _currentItemImg;
-    [SerializeField] private Canvas _canvas;
+    [SerializeField] private Text _moneyText;
+    private int _currentMoney = 0;
     private Item _currentItem;
     private int _currentItemAmount;
     private SlotContainer _currentSlot;
@@ -53,29 +54,45 @@ public class MainMenuInventoryController : MonoBehaviour
         MainMenuController.OnUpdateSlots(_hotbarSlot);
     }
 
-    void Start()
-    {
-        _inventorySlot[0].UpdateSlot(_item);
-        Debug.Log(_item.GetInstanceID());
-    }
-
     private void SetTarget(SlotContainer slotContainer)
     {
-        Debug.Log(_currentItem + " | " + _currentItemAmount);
-        Debug.Log(_newSlot);
        
         if (slotContainer == null)
         {
-            if(_newSlot != null)
+            if (_newSlot != null)
             {
-                _newSlot.UpdateSlot(_currentItem, _currentItemAmount);
-                
+                if (_newSlot.GetItem() == _currentItem)
+                {
+                    int amount = _currentItem.MaxAmount - _currentItemAmount;
+                    if (_newSlot.GetAmount() + amount < _currentItem.MaxAmount && amount > 0)
+                    {
+                        Debug.Log(_newSlot.GetAmount() + " | " + _currentItem.MaxAmount + " | " + amount);
+                        _newSlot.UpdateAmount(_newSlot.GetAmount() + amount);
+                    }
+                    else
+                    {
+                        _currentSlot.UpdateSlot(_currentItem, _currentItemAmount - (_currentItem.MaxAmount - _newSlot.GetAmount()));
+                        _newSlot.UpdateAmount(_currentItem.MaxAmount);
+                    }
+                }
+                else if(_newSlot.GetItem() == null)
+                {
+                    _newSlot.UpdateSlot(_currentItem, _currentItemAmount);
+                }
+                else
+                {
+                    _currentSlot.UpdateSlot(_currentItem, _currentItemAmount);
+                }
+
+
             }
             else
             {
                 _currentSlot.UpdateSlot(_currentItem, _currentItemAmount);
             }
+   
             _currentItemImg.enabled = false;
+            
         }
         else
         {
@@ -83,7 +100,7 @@ public class MainMenuInventoryController : MonoBehaviour
 
             _currentItem = _currentSlot.GetItem();
             _currentItemAmount = _currentSlot.GetAmount();
-            Debug.Log(_currentItem + " | " + _currentItemAmount);
+         
             _currentItemImg.enabled = true;
             _currentItemImg.overrideSprite = slotContainer.GetItem() .Icon;
         }
@@ -99,9 +116,31 @@ public class MainMenuInventoryController : MonoBehaviour
         _currentItemImg.transform.position = pos;
     }
 
-    private void OnDestroy()
+    public int GetMoney()
     {
+        return _currentMoney;
+    }
 
+    public void AddMoney(int money)
+    {
+        _currentMoney += money;
+        _moneyText.text = _currentMoney.ToString("C", CultureInfo.CreateSpecificCulture("en-US"));
+    }
+
+    public List<SlotContainer> GetSlots(SlotType type)
+    {
+        if(type == SlotType.Main)
+        {
+            return _mainSlot;
+        }
+        else if (type == SlotType.Hotbar)
+        {
+            return _hotbarSlot;
+        }
+        else
+        {
+            return _inventorySlot;
+        }
     }
 
     public void SavePrefs()

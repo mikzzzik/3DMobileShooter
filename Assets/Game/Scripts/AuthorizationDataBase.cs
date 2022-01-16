@@ -98,13 +98,25 @@ public class AuthorizationDataBase : MonoBehaviour
         {
 
                 PlayerPrefs.SetInt("PlayerID", int.Parse(webRequest[0]));
-            SceneManager.LoadScene("MainMenu");
+            StartCoroutine(LoadScene());
         }
 
         else
         {
             _signInErrorText.text = webRequest[0];
             Debug.Log("Error: " + webRequest[0]);
+        }
+
+    }
+    
+    private IEnumerator LoadScene()
+    {
+        AsyncOperation loading = SceneManager.LoadSceneAsync("MainMenu");
+        while (!loading.isDone)
+        {
+            Debug.Log(loading.progress);
+
+            yield return null;
         }
 
     }
