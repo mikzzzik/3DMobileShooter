@@ -23,8 +23,11 @@ public class PickableObject : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if(!EventSystem.current.IsPointerOverGameObject())
-        PlayerInventory.OnPickUpItem(this);
+        if (!EventSystem.current.IsPointerOverGameObject())
+        {
+            PlayerInventory.OnPickUpItem(this);
+            PlayerStatistic.OnUpdateItemTake();
+        }
     }
 
     public Item GetItem()

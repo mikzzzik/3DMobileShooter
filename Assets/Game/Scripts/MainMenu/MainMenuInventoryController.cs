@@ -64,23 +64,26 @@ public class MainMenuInventoryController : MonoBehaviour
                 if (_newSlot.GetItem() == _currentItem)
                 {
                     int amount = _currentItem.MaxAmount - _currentItemAmount;
-                    if (_newSlot.GetAmount() + amount < _currentItem.MaxAmount && amount > 0)
+                    if (_newSlot.GetAmount() + _currentItemAmount < _currentItem.MaxAmount && amount > 0)
                     {
-                        Debug.Log(_newSlot.GetAmount() + " | " + _currentItem.MaxAmount + " | " + amount);
-                        _newSlot.UpdateAmount(_newSlot.GetAmount() + amount);
+                        Debug.Log(_newSlot.GetAmount() + " | " + _currentItemAmount + " | " + amount );
+                        _newSlot.UpdateAmount(_newSlot.GetAmount() + _currentItemAmount);
                     }
                     else
                     {
+                        Debug.Log(1);
                         _currentSlot.UpdateSlot(_currentItem, _currentItemAmount - (_currentItem.MaxAmount - _newSlot.GetAmount()));
                         _newSlot.UpdateAmount(_currentItem.MaxAmount);
                     }
                 }
                 else if(_newSlot.GetItem() == null)
                 {
+                    Debug.Log(2);
                     _newSlot.UpdateSlot(_currentItem, _currentItemAmount);
                 }
                 else
                 {
+                    Debug.Log(3);
                     _currentSlot.UpdateSlot(_currentItem, _currentItemAmount);
                 }
 
@@ -88,6 +91,7 @@ public class MainMenuInventoryController : MonoBehaviour
             }
             else
             {
+                Debug.Log(4);
                 _currentSlot.UpdateSlot(_currentItem, _currentItemAmount);
             }
    

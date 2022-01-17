@@ -64,6 +64,7 @@ public class MainMenuController : MonoBehaviour
         webRequest.RemoveAt(0);
         if(bool.Parse(status))
         {
+     
             _inventoryController.AddMoney(int.Parse(webRequest[0]));
             _inventoryController.LoadInventory(GetInventory);
         }
@@ -94,10 +95,10 @@ public class MainMenuController : MonoBehaviour
             string status = webRequest[0];
 
             webRequest.RemoveAt(0);
-            Debug.Log(status);
+    
             if (bool.Parse(status))
             {
-                int id = int.Parse(webRequest[0]);
+                int id = int.Parse(webRequest[0]);  
                 if (id == -1)
                 {
                     webRequest.Clear();
@@ -134,7 +135,7 @@ public class MainMenuController : MonoBehaviour
             }
             else
             {
-                form.AddField("item_id", slots[i].GetItem().GetInstanceID());
+                form.AddField("item_id", slots[i].GetItem().ItemId);
             }
 
             form.AddField("item_count", slots[i].GetAmount());

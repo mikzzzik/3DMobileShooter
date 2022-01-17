@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Item : ScriptableObject
 {
+    public int ItemId;
     public string Name;
     public string Description;
     public int MaxAmount = 1;

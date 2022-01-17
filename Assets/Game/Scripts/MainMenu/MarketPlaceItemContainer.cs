@@ -12,7 +12,8 @@ public class MarketPlaceItemContainer : MonoBehaviour
     [SerializeField] private Text _priceText;
     [SerializeField] private Text _amountText;
     [SerializeField] private Image _iconImage;
-    [SerializeField] private MainMenuInventoryController _mainMenuInventoryController;
+    private MainMenuInventoryController _mainMenuInventoryController;
+    private MarketPlaceController _marketplaceController;
     private Item _item;
     private int _playerId;
     private int _amount;
@@ -29,7 +30,7 @@ public class MarketPlaceItemContainer : MonoBehaviour
 
     }
 
-    public void SetItem(int id, Item item, int idPlayer, int amount, int price, MainMenuInventoryController controller)
+    public void SetItem(int id, Item item, int idPlayer, int amount, int price, MainMenuInventoryController controller, MarketPlaceController marketController)
     {
         _id = id;
         _item = item;
@@ -45,6 +46,7 @@ public class MarketPlaceItemContainer : MonoBehaviour
 
         _iconImage.sprite = item.Icon;
         _mainMenuInventoryController = controller;
+        _marketplaceController = marketController;
 
     }
 
@@ -77,7 +79,7 @@ public class MarketPlaceItemContainer : MonoBehaviour
         form.AddField("id", PlayerPrefs.GetInt("PlayerID"));
         form.AddField("marketplace_id", _id);
         form.AddField("idSeller", _playerId);
-        form.AddField("item_id", _item.GetInstanceID());
+        form.AddField("item_id", _item.ItemId);
         form.AddField("item_count", _amount);
         form.AddField("item_price", _price);
         form.AddField("slot_id", index);
@@ -97,6 +99,8 @@ public class MarketPlaceItemContainer : MonoBehaviour
         {
             _mainMenuInventoryController.AddMoney(-_price);
             slots[index].UpdateSlot(_item, _amount);
+            _marketplaceController.GetSlots()[index].UpdateSlot(_item, _amount);
+            _marketplaceController.UpdateMoney();
             Destroy(gameObject);
 
         }

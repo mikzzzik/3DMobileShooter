@@ -12,12 +12,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13b066937f28f3a449a32b6bb18813fb, type: 3}
   m_Name: PM_weapon
   m_EditorClassIdentifier: 
+  ItemId: 0
   Name: PM
   Description: 
-  MaxAmmount: 1
+  MaxAmount: 1
+  Icon: {fileID: 0}
   ItemObject: {fileID: 0}
-  Equipment: 1
+  ItemType: 0
+  MinPrice: 1000
   MaxAmmo: 7
+  MaxLoaded: 0
   FireRate: 0
+  Damage: 0
   AutoFire: 0
   ReloadingTime: 0
+  AnimatorController: {fileID: 0}
+  ShootAudio: {fileID: 0}
+  NoAmmoAudio: {fileID: 0}
+  ReloadAudio: {fileID: 0}
+  ItemWeaponType: 0
+  AmmoType: 0

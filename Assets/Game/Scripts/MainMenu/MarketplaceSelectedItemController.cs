@@ -76,7 +76,7 @@ public class MarketplaceSelectedItemController : MonoBehaviour
 
         form.AddField("id", PlayerPrefs.GetInt("PlayerID"));
         form.AddField("slot_id", _marketPlaceController.GetSlotIndex(_slotContainer));
-        form.AddField("item_id", _item.GetInstanceID());
+        form.AddField("item_id", _item.ItemId);
         form.AddField("item_count", _sliderAmount.value.ToString());
         form.AddField("item_price", _priceField.text);
 

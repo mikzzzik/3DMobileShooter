@@ -18,7 +18,7 @@ public class ItemDataBase : MonoBehaviour
 
     }
 
-    private void OnDisable()
+    private void OnDestroy()
     {
         OnSavePrefs -= SavePrefs;
         OnUpdateInventory -= UpdateInventoryDataBase; 
@@ -28,7 +28,7 @@ public class ItemDataBase : MonoBehaviour
     {
         for(int i = 0; i < _itemList.Count; i++)
         {   
-            if(_itemList[i].GetInstanceID() == id)
+            if(_itemList[i].ItemId == id)
             {
            
                 return _itemList[i];
@@ -44,7 +44,7 @@ public class ItemDataBase : MonoBehaviour
             if (_mainSlot[i].GetItem() == null)
                 PlayerPrefs.SetInt("MainItemIndex_" + i, -1);
             else
-                PlayerPrefs.SetInt("MainItemIndex_" + i, _mainSlot[i].GetItem().GetInstanceID());
+                PlayerPrefs.SetInt("MainItemIndex_" + i, _mainSlot[i].GetItem().ItemId);
             PlayerPrefs.SetInt("MainItemAmount_" + i, _mainSlot[i].GetAmount());
         }
         for (int i = 0; i < _hotbarSlot.Count; i++)
@@ -52,7 +52,7 @@ public class ItemDataBase : MonoBehaviour
             if (_hotbarSlot[i].GetItem() == null)
                 PlayerPrefs.SetInt("HotbarItemIndex_" + i, -1);
             else
-                PlayerPrefs.SetInt("HotbarItemIndex_" + i, _hotbarSlot[i].GetItem().GetInstanceID());
+                PlayerPrefs.SetInt("HotbarItemIndex_" + i, _hotbarSlot[i].GetItem().ItemId);
             PlayerPrefs.SetInt("HotbarItemAmount_" + i, _hotbarSlot[i].GetAmount());
         }
         OnSavePrefs -= SavePrefs;
@@ -81,7 +81,7 @@ public class ItemDataBase : MonoBehaviour
             }
             else
             {
-                form.AddField("item_id", item.GetInstanceID());
+                form.AddField("item_id", item.ItemId);
             }
             form.AddField("item_count", slots[i].GetAmount());
 
@@ -95,7 +95,7 @@ public class ItemDataBase : MonoBehaviour
             Debug.Log(status);
             if (bool.Parse(status))
             {
-                Debug.Log(webRequest[0]);
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
             }
             else
             {

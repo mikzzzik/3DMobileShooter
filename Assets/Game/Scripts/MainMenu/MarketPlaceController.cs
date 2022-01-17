@@ -6,6 +6,7 @@ using System.Linq;
 using UnityEngine.UI;
 using System.Globalization;
 using System;
+
 public class MarketPlaceController : MonoBehaviour
 {
     [SerializeField] private Transform _viewport;
@@ -133,6 +134,6 @@ public class MarketPlaceController : MonoBehaviour
     private void InstanceNewItem(int id ,Item item,int playerId, int amount, int price)
     {
         MarketPlaceItemContainer marketPlaceItemContainer = Instantiate(_itemPrefab,_container.transform) as MarketPlaceItemContainer;
-        marketPlaceItemContainer.SetItem(id,item, playerId, amount, price, _inventoryController);
+        marketPlaceItemContainer.SetItem(id,item, playerId, amount, price, _inventoryController,this);
     }
 }

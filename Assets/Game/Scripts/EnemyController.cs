@@ -8,8 +8,10 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private RoomController _roomController;
     [SerializeField] private GameObject _selectedLines;
     [SerializeField] private HealthBarNPC _healthBar;
+    [SerializeField] private int _moneyEarn = 100;
     private Vector3 _nextPos;
     private bool _isPosition = true;
+    
     void Awake()
     {
         _selectedLines.SetActive(false);
@@ -62,6 +64,8 @@ public class EnemyController : MonoBehaviour
 
     public void Death()
     {
+        PlayerStatistic.OnKillEnemys();
+        PlayerStatistic.OnUpdateMoney(_moneyEarn);
         Destroy(this.gameObject);
     }
 }

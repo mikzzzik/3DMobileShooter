@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3144a4682fdd30647b29035cbceea37a, type: 3}
   m_Name: 9mm_bullet
   m_EditorClassIdentifier: 
+  ItemId: 0
   Name: 9mm Bullet
   Description: Ammo for 9mm pistols
   MaxAmount: 240

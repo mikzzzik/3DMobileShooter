@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using System.Linq;
+
 public enum SlotType
 { 
     Main,
@@ -13,11 +14,10 @@ public class PlayerInventory : MonoBehaviour
 {
     [SerializeField] private List<SlotContainer> _mainSlots;
     [SerializeField] private List<SlotContainer> _hotbarSlots;
-    [SerializeField] private InventoryPanelController _inventoryPanelController;
     [SerializeField] private List<WeaponController> _weaponControllerList;
     [SerializeField] private PlayerController _playerController;
     [SerializeField] private PlayerWeaponController _playerWeaponController;
-    [SerializeField] private ItemDataBase _itemDB;
+    [SerializeField] private ItemDataBase _itemData;
     
     private Item _nowItem;
     private SlotContainer _nowSlot;
@@ -45,7 +45,7 @@ public class PlayerInventory : MonoBehaviour
             int id = PlayerPrefs.GetInt("MainItemIndex_" + i);
             if (id != -1)
             {
-                Item nowItem = _itemDB.GetItem(id);
+                Item nowItem = _itemData.GetItem(id);
                 _mainSlots[i].UpdateSlot(nowItem, PlayerPrefs.GetInt("MainItemAmount_" + i));
 
             }
@@ -56,7 +56,7 @@ public class PlayerInventory : MonoBehaviour
             Debug.Log(id);
             if (id != -1)
             {
-                Item nowItem = _itemDB.GetItem(id);
+                Item nowItem = _itemData.GetItem(id);
                 _hotbarSlots[i].UpdateSlot(nowItem, PlayerPrefs.GetInt("HotbarItemAmount_" + i));
                 if (i == 0)
                     Equip(SlotType.Hotbar, 0);
@@ -73,7 +73,6 @@ public class PlayerInventory : MonoBehaviour
         OnUseItem -= Use;
         OnRaidExit -= RaidExit;
 
-        ItemDataBase.OnSavePrefs(_mainSlots, _hotbarSlots);
     }
 
     private void RaidExit()
@@ -124,7 +123,7 @@ public class PlayerInventory : MonoBehaviour
     private void UseAmmo(SlotType type, int index)
     {
         Ammo ammo = _nowItem as Ammo;
-        if(_hotbarSlots[0] != null)
+        if(_hotbarSlots[0].GetItem() != null)
         {
             Debug.Log(ammo.AmmoType);
            if ((_hotbarSlots[0].GetItem() as Weapon).AmmoType == ammo.AmmoType)
