@@ -5,7 +5,7 @@ using UnityEngine;
 public class DoorController : MonoBehaviour
 {
     [SerializeField] private Animator _anim;
-    private PlayerInteractionController _playerInteractionController;
+    [SerializeField] private PlayerInteractionController _playerInteractionController;
     private void Awake()
     {
         if(null == _anim)

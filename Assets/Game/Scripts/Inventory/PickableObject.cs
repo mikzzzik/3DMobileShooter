@@ -44,4 +44,16 @@ public class PickableObject : MonoBehaviour
     {
         return _amount;
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log(other.name);
+        PlayerInventory.OnItemOnTriggerEnter(this);
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+
+        PlayerInventory.OnItemOnTriggerExit(this);
+    }
 }

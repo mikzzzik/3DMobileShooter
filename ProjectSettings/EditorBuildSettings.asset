@@ -15,6 +15,6 @@ EditorBuildSettings:
     path: Assets/Game/Scenes/Level_1.unity
     guid: 87b96c9e2285d7543a703ed7155cae07
   - enabled: 0
-    path: Assets/Admin/Scene/AdminAuth.unity
+    path: Assets/UselessContent(Only for CHPKA..To Delete)/Scene/AdminAuth.unity
     guid: 76509541e171464448bdd8b7abec6dfb
   m_configObjects: {}

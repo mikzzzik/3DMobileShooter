@@ -18,18 +18,23 @@ public class PlayerInventory : MonoBehaviour
     [SerializeField] private PlayerController _playerController;
     [SerializeField] private PlayerWeaponController _playerWeaponController;
     [SerializeField] private ItemDataBase _itemData;
-    
+    [SerializeField] private GameObject _takeItemButton;
+    [SerializeField] private List<PickableObject> _pickableObjectList = new List<PickableObject>();
+
     private Item _nowItem;
     private SlotContainer _nowSlot;
     private WeaponController _activeWeapon;
 
+    public static Action<PickableObject> OnItemOnTriggerEnter;
+    public static Action<PickableObject> OnItemOnTriggerExit;
     public static Action<PickableObject> OnPickUpItem;
     public static Action<SlotType, int> OnDropItem;
     public static Action<SlotType, int> OnEquipItem;
     public static Action<SlotType, int> OnUnEquipItem;
     public static Action<SlotType, int> OnUseItem;
     public static Action OnRaidExit;
-    
+
+    private int index;
     
     private void OnEnable()
     {
@@ -39,6 +44,8 @@ public class PlayerInventory : MonoBehaviour
         OnUnEquipItem += UnEquip;
         OnUseItem += Use;
         OnRaidExit += RaidExit;
+        OnItemOnTriggerEnter += TriggerEnter;
+        OnItemOnTriggerExit += TriggerExit;
 
         for (int i = 0; i < _mainSlots.Count; i++)
         {
@@ -72,7 +79,8 @@ public class PlayerInventory : MonoBehaviour
         OnUnEquipItem -= UnEquip;
         OnUseItem -= Use;
         OnRaidExit -= RaidExit;
-
+        OnItemOnTriggerEnter -= TriggerEnter;
+        OnItemOnTriggerExit -= TriggerExit;
     }
 
     private void RaidExit()
@@ -80,29 +88,59 @@ public class PlayerInventory : MonoBehaviour
        ItemDataBase.OnUpdateInventory(_mainSlots); 
        ItemDataBase.OnUpdateInventory(_hotbarSlots);
     }
+
+    private void TriggerEnter(PickableObject item)
+    {
+        _takeItemButton.SetActive(true);
+        _pickableObjectList.Add(item);
+    }
+    private void TriggerExit(PickableObject item)
+    {
+        _pickableObjectList.Remove(item);
+        if (_pickableObjectList.Count <= 0)
+            _takeItemButton.SetActive(false);
+    }
+
+    public void TakeNearlyItem()
+    {
+        index = 0;
+        for(int i = 0 ; i < _pickableObjectList.Count; i++)
+        {
+            if(Vector3.Distance(_pickableObjectList[i].transform.position,transform.position) < Vector3.Distance(_pickableObjectList[index].transform.position, transform.position))
+            {
+                index = i;
+            }
+        }
+        Debug.Log("GG");
+        
+        PickUp(_pickableObjectList[index]);
+    }
     public void PickUp(PickableObject item)
     {
-
+        
         SlotContainer emptySlot = null;
         for (int i = 0; i < _mainSlots.Count; i++)
         {
 
-
             if (_mainSlots[i].GetItem() == null && emptySlot == null)
+            {
                 emptySlot = _mainSlots[i];
+                Destroy(item.gameObject);
+                TriggerExit(item);
+                break;
+            }
             if (item.GetItem() == _mainSlots[i].GetItem())
             {
                 item.UpdateAmount(_mainSlots[i].AddAmount(item.GetAmount()));
-
                 if (item.GetAmount() == 0)
                 {
                     Destroy(item.gameObject);
-
+                    TriggerExit(item);
                     return;
                 }
             }
         }
-        Destroy(item.gameObject);
+        if(emptySlot != null)
         emptySlot.UpdateSlot(item.GetItem(), item.GetAmount());
     }
 
@@ -206,7 +244,7 @@ public class PlayerInventory : MonoBehaviour
 
                         _activeWeapon = _weaponControllerList[j];
                         _activeWeapon.gameObject.SetActive(true);
-                        
+                        Debug.Log(_playerController);
                         _playerController.ChangeAnimatorController(_nowWeapon.AnimatorController);
                     }
                 }
@@ -229,8 +267,6 @@ public class PlayerInventory : MonoBehaviour
             }
         }
     }
-
-
 
     private void ClearSlot(SlotType type, int index)
     {

@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerInteractionController : MonoBehaviour
 {
     [SerializeField] private GameObject _doorButton;
-    private DoorController _doorController;
+    [SerializeField] private DoorController _doorController;
  //   public GameObject InteractionObject;
 
     
@@ -32,6 +32,8 @@ public class PlayerInteractionController : MonoBehaviour
     }
     public void ClickDoorButton()
     {
+        Debug.Log(gameObject.name);
+        Debug.Log(_doorController);
         _doorController.DoorInteraction();
     }
 }
