@@ -43,6 +43,7 @@ public class PlayerWeaponController : MonoBehaviour
     public void Boxing()
     {
         if (_animator.GetBool("Boxing")) return;
+
         _boxing = true;
 
         int index = UnityEngine.Random.Range(0, 3);

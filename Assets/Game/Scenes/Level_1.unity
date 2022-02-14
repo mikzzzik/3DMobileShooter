@@ -4262,7 +4262,7 @@ PrefabInstance:
     - target: {fileID: 4112808767558279418, guid: 3309cd482cd80b146b92f5c9a6103f49,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 14.999994
+      value: 14.93
       objectReference: {fileID: 0}
     - target: {fileID: 4112808767558279418, guid: 3309cd482cd80b146b92f5c9a6103f49,
         type: 3}
@@ -4272,7 +4272,7 @@ PrefabInstance:
     - target: {fileID: 4112808767558279418, guid: 3309cd482cd80b146b92f5c9a6103f49,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 12.999996
+      value: 13.08
       objectReference: {fileID: 0}
     - target: {fileID: 4112808767558279418, guid: 3309cd482cd80b146b92f5c9a6103f49,
         type: 3}
@@ -5502,6 +5502,7 @@ MonoBehaviour:
   _animator: {fileID: 444235550}
   _healthBar: {fileID: 444235552}
   _moneyEarn: 100
+  _player: {fileID: 0}
 --- !u!136 &444235554
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -5543,8 +5544,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 15, y: 0.2, z: 15}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 15, y: 1.3545325, z: 15}
+  m_Center: {x: 0, y: 0.5772662, z: 0}
 --- !u!136 &444235557
 CapsuleCollider:
   m_ObjectHideFlags: 0

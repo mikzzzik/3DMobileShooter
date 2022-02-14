@@ -10,8 +10,12 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private Animator _animator;
     [SerializeField] private HealthBarNPC _healthBar;
     [SerializeField] private int _moneyEarn = 100;
+    [SerializeField] private Transform _player;
+
     private Vector3 _nextPos;
-    private bool _isPosition = true;
+
+    [SerializeField] private bool _isPlayer = false;
+    [SerializeField] private bool _isMoving = true;
 
     void Awake()
     {
@@ -44,22 +48,55 @@ public class EnemyController : MonoBehaviour
         _selectedLines.SetActive(status);
     }
 
+    private void FixedUpdate()
+    {
+        if(_isPlayer)
+        {
+          
+            Debug.DrawLine(transform.position+ Vector3.up, (_player.position - transform.position) * 100f, Color.blue) ;
+            
+            RaycastHit hit;
+            
+            Physics.Raycast(transform.position + Vector3.up, _player.position - transform.position, out hit, Mathf.Infinity);
+
+            if(hit.collider.tag == "Player")
+            {
+                _animator.SetBool("Walk", false);
+
+                _isMoving = false;
+
+                _agent.ResetPath();
+            }
+
+            else if(!_isMoving)
+            {
+                _isMoving = true;
+
+                ChooseNextPosToPatrol();
+            }
+            
+        }
+    }
+
     private void ChooseNextPosToPatrol()
     {
-
+        if ( !_isMoving) return;
+         
         NavMeshHit hit;
 
-        do {
+        do 
+        {
             _nextPos = _roomController.GetNextPos();
 
         } while (Vector3.Distance(transform.position, _nextPos) < 6f);
+
         NavMesh.SamplePosition(_nextPos, out hit, 1.5f, NavMesh.AllAreas);
 
         _animator.SetBool("Walk", true);
 
         _agent.SetDestination(hit.position);
 
-        _isPosition = false;
+
         StartCoroutine(NextPosMove());
 
         Debug.Log(_agent.isStopped);
@@ -70,7 +107,6 @@ public class EnemyController : MonoBehaviour
         Vector3 distanceToWalkPoint = transform.position - _nextPos;
         if (distanceToWalkPoint.magnitude < 1.3f)
         {
-
             _animator.SetBool("Walk", false);
 
             _agent.ResetPath();
@@ -96,9 +132,10 @@ public class EnemyController : MonoBehaviour
     {
         if(other.tag == "Player")
         {
-            _animator.SetBool("Walk", false);
+           
+            _player = other.gameObject.transform;
 
-            _agent.ResetPath();
+            _isPlayer = true;
 
             StopAllCoroutines();
 
@@ -107,9 +144,12 @@ public class EnemyController : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.tag == "Player")
+        if (other.tag == "Player" )
         {
-            ChooseNextPosToPatrol();
+            if (Vector3.Distance(transform.position, _player.position) > 4)
+            {
+                _isPlayer = false;
+            }
         }
     }
     public void Death()
