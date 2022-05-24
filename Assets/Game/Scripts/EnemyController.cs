@@ -76,6 +76,7 @@ public class EnemyController : MonoBehaviour
             }
             
         }
+
     }
 
     private void ChooseNextPosToPatrol()
@@ -149,6 +150,10 @@ public class EnemyController : MonoBehaviour
             if (Vector3.Distance(transform.position, _player.position) > 4)
             {
                 _isPlayer = false;
+
+                _isMoving = true;
+
+                ChooseNextPosToPatrol();
             }
         }
     }

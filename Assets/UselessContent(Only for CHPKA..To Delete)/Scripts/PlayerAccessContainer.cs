@@ -28,6 +28,7 @@ public class PlayerAccessContainer : MonoBehaviour
     public void EditButton()
     {
         _active = !_active;
+        if (_acessLevelField.text == "2") _active = false;
         _acessLevelField.targetGraphic.enabled = _active;
 
         _acessLevelField.interactable = _active;

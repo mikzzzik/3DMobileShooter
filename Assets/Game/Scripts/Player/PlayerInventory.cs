@@ -20,6 +20,8 @@ public class PlayerInventory : MonoBehaviour
     [SerializeField] private ItemDataBase _itemData;
     [SerializeField] private GameObject _takeItemButton;
     [SerializeField] private List<PickableObject> _pickableObjectList = new List<PickableObject>();
+    [SerializeField] private GameObject _attackButton;
+
 
     private Item _nowItem;
     private SlotContainer _nowSlot;
@@ -33,6 +35,8 @@ public class PlayerInventory : MonoBehaviour
     public static Action<SlotType, int> OnUnEquipItem;
     public static Action<SlotType, int> OnUseItem;
     public static Action OnRaidExit;
+
+
 
     private int index;
     
@@ -91,7 +95,7 @@ public class PlayerInventory : MonoBehaviour
 
     private void TriggerEnter(PickableObject item)
     {
-        _takeItemButton.SetActive(true);
+        //_takeItemButton.SetActive(true);
         _pickableObjectList.Add(item);
     }
     private void TriggerExit(PickableObject item)
@@ -244,6 +248,9 @@ public class PlayerInventory : MonoBehaviour
 
                         _activeWeapon = _weaponControllerList[j];
                         _activeWeapon.gameObject.SetActive(true);
+
+                        _attackButton.SetActive(false);
+
                         Debug.Log(_playerController);
                         _playerController.ChangeAnimatorController(_nowWeapon.AnimatorController);
                     }
@@ -256,12 +263,16 @@ public class PlayerInventory : MonoBehaviour
     private void UnEquipWeapon(int index)
     {
         _playerWeaponController.BeginUnEquipWeapon();
+        
         for (int i = 0; i < _mainSlots.Count; i++)
         {
             if (_mainSlots[i].GetItem() == null)
             {
                 _mainSlots[i].UpdateSlot(_nowItem);
+                
                 ClearSlot(SlotType.Hotbar, index);
+                
+                _attackButton.SetActive(true);
                 
                 return;
             }

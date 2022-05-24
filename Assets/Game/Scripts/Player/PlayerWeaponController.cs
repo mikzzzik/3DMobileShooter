@@ -29,6 +29,8 @@ public class PlayerWeaponController : MonoBehaviour
     public void BeginUnEquipWeapon()
     {
         _animator.SetBool("UnEquip", true);
+
+        UnEquipWeapon();
     }
 
 
@@ -76,7 +78,9 @@ public class PlayerWeaponController : MonoBehaviour
     public void UnEquipWeapon()
     {
         _animator.SetBool("UnEquip", false);
+        
         _playerController.ChangeAnimatorController(null);
+        
         WeaponController.OnWeaponHide();
     }
 

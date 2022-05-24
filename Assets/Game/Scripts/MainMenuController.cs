@@ -62,9 +62,13 @@ public class MainMenuController : MonoBehaviour
         List<string> webRequest = www.downloadHandler.text.Split('\t').ToList();
         string status = webRequest[0];
         webRequest.RemoveAt(0);
+        for(int i =0; i < webRequest.Count;i++)
+        {
+            Debug.Log(webRequest[i]);
+        }
         if(bool.Parse(status))
         {
-     
+            
             _inventoryController.AddMoney(int.Parse(webRequest[0]));
             _inventoryController.LoadInventory(GetInventory);
         }

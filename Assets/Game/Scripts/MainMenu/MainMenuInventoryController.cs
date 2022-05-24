@@ -37,7 +37,7 @@ public class MainMenuInventoryController : MonoBehaviour
 
     public void InitInventory(Action<List<SlotContainer>,List<SlotContainer>,List<SlotContainer>> action)
     {
-        Debug.Log(_inventorySlot.Count);
+
         action(_inventorySlot, _mainSlot,_hotbarSlot);
 
     }
